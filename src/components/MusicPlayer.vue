@@ -2,17 +2,21 @@
   <div class="mini-player" v-if="currentSong">
     <div class="divider-player">
       <div class="left-control-media">
-      <div>
-        <vs-avatar square size="64">
-          <img :src="currentSong.imageCover" />
-        </vs-avatar>
-      </div>
-      <div>
-        <span style="font-size: 16px; font-weight: bold;"
-          >{{ currentSong.name }}<i style="vertical-align: middle; margin-left: 8px" class="bx bx-heart" /></span>
-        <br />
-        <span>{{ currentSong.artist.name }}</span>
-      </div>
+        <div>
+          <vs-avatar square size="64">
+            <img :src="currentSong.imageCover" />
+          </vs-avatar>
+        </div>
+        <div>
+          <span style="font-size: 16px; font-weight: bold"
+            >{{ currentSong.name
+            }}<i
+              style="vertical-align: middle; margin-left: 8px"
+              class="bx bx-heart"
+          /></span>
+          <br />
+          <span>{{ currentSong.artist.name }}</span>
+        </div>
       </div>
       <div class="center-media-actions">
         <div class="seekbar-media">
@@ -20,19 +24,21 @@
         </div>
         <div class="actions-media-buttons">
           <div>
-        <vs-button circle @click="skipToPrev">
-          <i class="bx bx-skip-previous" />
-        </vs-button>
+            <vs-button circle @click="skipToPrev">
+              <i class="bx bx-skip-previous" />
+            </vs-button>
           </div>
           <div>
-        <vs-button circle @click="setActionMedia">
-          <i :class="!mediaPlayerIsPlaying ? 'bx bx-play' : 'bx bx-pause'" />
-        </vs-button>
+            <vs-button circle @click="setActionMedia">
+              <i
+                :class="!mediaPlayerIsPlaying ? 'bx bx-play' : 'bx bx-pause'"
+              />
+            </vs-button>
           </div>
           <div>
-        <vs-button circle @click="skipToNext">
-          <i class="bx bx-skip-next" />
-        </vs-button>
+            <vs-button circle @click="skipToNext">
+              <i class="bx bx-skip-next" />
+            </vs-button>
           </div>
         </div>
       </div>
@@ -41,7 +47,7 @@
           <i class="bx bx-volume" />
         </div>
         <div>
-          <input type="range" v-model="volume" min="0" max="100" step="1"/>
+          <input type="range" v-model="volume" min="0" max="100" step="1" />
         </div>
       </div>
     </div>
@@ -49,7 +55,6 @@
 </template>
 
 <script lang="ts">
-import {Howl, Howler} from "howler"
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapState, mapGetters, mapActions } from "vuex";
 import { Song } from "@/types/Song";
@@ -61,25 +66,31 @@ import Player from "@/classes/Player";
     ...mapGetters(["currentSong", "mediaPlayerIsPlaying"]),
   },
   methods: {
-    ...mapActions(["pausePlayer", "playPlayer", "skipToPrev", "skipToNext", "setVolume"]),
-    setActionMedia() {
+    ...mapActions([
+      "pausePlayer",
+      "playPlayer",
+      "skipToPrev",
+      "skipToNext",
+      "setVolume",
+    ]),
+    setActionMedia(): void {
       if (this.mediaPlayerIsPlaying) {
         this.pausePlayer();
       } else {
         this.playPlayer();
       }
-    }
+    },
   },
 })
 export default class MusicPlayer extends Vue {
-  private selectedSong!: Song;
+  private selectedSong: Song = {};
   private volume = 75;
   private mediaPlayerIsPlaying!: boolean;
-  private currentSong;
-  private mediaPlayer!: Player;
+  private currentSong = null;
+  private mediaPlayer: Player = {};
 
   @Watch("volume", { immediate: true })
-  onVolumeChanged(newVal: number, oldVal: number) {
+  onVolumeChanged(newVal: number): void {
     let aux = (newVal / 100).toFixed(1);
     this.setVolume(aux);
   }
@@ -138,8 +149,8 @@ export default class MusicPlayer extends Vue {
   flex-direction: row;
   flex-wrap: nowrap;
 
-    div:last-child {
-      margin-right: 8px;
-    }
+  div:last-child {
+    margin-right: 8px;
+  }
 }
 </style>

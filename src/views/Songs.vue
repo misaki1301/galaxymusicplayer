@@ -40,7 +40,7 @@ import Player from "@/classes/Player.js";
 
 @Component({
   methods: {
-    async getSongs() {
+    async getSongs(): void {
       try {
         const req = await this.axios.get("songs");
         console.table(req.data);
@@ -50,12 +50,11 @@ import Player from "@/classes/Player.js";
         console.error(e);
       }
     },
-    checkSong(song) {
+    checkSong(song: void) {
       //this.SetCurrentSong(song);
       //this.player = new Player([song]);
       //this.player.play();
       this.playSelectedSong(song);
-
     },
     ...mapActions(["SetCurrentSong", "setSongList", "playSelectedSong"]),
   },

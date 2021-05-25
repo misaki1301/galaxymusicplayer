@@ -9,15 +9,44 @@ export default class Player {
   currentSong = "";
   sound = null;
   actionsHandlers = [
-    ['play',          () => { this.resume() }],
-    ['pause',         () => { this.pause() }],
-    ['previoustrack', () => { this.skip("prev") }],
-    ['nexttrack',     () => { this.skip("next") }],
-    ['stop',          () => { this.stop() }],
+    [
+      "play",
+      // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+      () => {
+        this.resume();
+      },
+    ],
+    [
+      "pause",
+      // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+      () => {
+        this.pause();
+      },
+    ],
+    [
+      "previoustrack",
+      // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+      () => {
+        this.skip("prev");
+      },
+    ],
+    [
+      "nexttrack",
+      () => {
+        this.skip("next");
+      },
+    ],
+    [
+      "stop",
+      // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+      () => {
+        this.stop();
+      },
+    ],
     //['seekbackward',  (details) => { /* ... */ }],
     //['seekforward',   (details) => { /* ... */ }],
     //['seekto',        (details) => { /* ... */ }],
-  ]
+  ];
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   constructor(playlist) {
@@ -96,7 +125,9 @@ export default class Player {
       try {
         navigator.mediaSession.setActionHandler(action, handler);
       } catch (error) {
-        console.log(`The media session action "${action}" is not supported yet.`);
+        console.log(
+          `The media session action "${action}" is not supported yet.`
+        );
       }
     }
     //keep track the current played song

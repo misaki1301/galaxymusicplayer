@@ -1,4 +1,6 @@
 import Vue from "vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import Vuesax from "vuesax";
 import axios from "axios";
 import VueAxios from "vue-axios";

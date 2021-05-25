@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 //import {Howl, Howler} from "howler"
 import Player from "@/classes/Player";
+import { Song } from "@/types/Song";
 
 Vue.use(Vuex);
 
@@ -27,7 +28,7 @@ export default new Vuex.Store({
       commit("addSongList", payload);
     },
     playSelectedSong({ state }, payload) {
-      const current = state.songList.find((x) => x.id === payload.id);
+      const current = state.songList.find((x: Song) => x.id === payload.id);
       console.log(current);
       try {
         state.mediaPlayer.stop();
@@ -35,6 +36,8 @@ export default new Vuex.Store({
         console.log("Cant Stop");
       }
       state.mediaPlayer.playlist = state.songList;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       state.mediaPlayer.play(state.songList.indexOf(current));
     },
     pausePlayer({ state }) {
@@ -64,7 +67,7 @@ export default new Vuex.Store({
     },
     getMaxDurationSong(state) {
       return state.mediaPlayer.getMaxDuration();
-    }
+    },
   },
   modules: {},
 });
