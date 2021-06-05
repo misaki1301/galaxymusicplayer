@@ -1,4 +1,7 @@
+import "@babel/polyfill";
+import "mutationobserver-shim";
 import Vue from "vue";
+import "./plugins/bootstrap-vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Vuesax from "vuesax";
@@ -14,7 +17,7 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = "http://localhost:5000/api/";
+axios.defaults.baseURL = "http://192.168.1.8:5000/api/";
 
 Vue.use(VueAxios, axios);
 Vue.use(Vuesax, {});

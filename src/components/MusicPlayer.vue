@@ -56,43 +56,51 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { mapState, mapGetters, mapActions } from "vuex";
+import { namespace } from "vuex-class";
+const playerModule = namespace("player");
 import { Song } from "@/types/Song";
 import Player from "@/classes/Player";
 
-@Component({
-  computed: {
-    ...mapState(["mediaPlayer"]),
-    ...mapGetters(["currentSong", "mediaPlayerIsPlaying"]),
-  },
-  methods: {
-    ...mapActions([
-      "pausePlayer",
-      "playPlayer",
-      "skipToPrev",
-      "skipToNext",
-      "setVolume",
-    ]),
-    setActionMedia(): void {
-      if (this.mediaPlayerIsPlaying) {
-        this.pausePlayer();
-      } else {
-        this.playPlayer();
-      }
-    },
-  },
-})
+@Component
 export default class MusicPlayer extends Vue {
-  private selectedSong: Song = {};
-  private volume = 75;
-  private mediaPlayerIsPlaying!: boolean;
-  private currentSong = null;
-  private mediaPlayer: Player = {};
+  volume = 75;
+
+  @playerModule.Getter
+  public mediaPlayerIsPlaying!: boolean;
+
+  @playerModule.Getter
+  public currentSong!: any;
+
+  @playerModule.State
+  public mediaPlayer!: Player;
+
+  @playerModule.Action
+  public pausePlayer!: () => void;
+
+  @playerModule.Action
+  public playPlayer!: () => void;
+
+  @playerModule.Action
+  public skipToPrev!: () => void;
+
+  @playerModule.Action
+  public skipToNext!: () => void;
+
+  @playerModule.Action
+  public setVolume!: (volume: number) => void;
 
   @Watch("volume", { immediate: true })
   onVolumeChanged(newVal: number): void {
-    let aux = (newVal / 100).toFixed(1);
+    let aux = parseFloat((newVal / 100).toFixed(1));
     this.setVolume(aux);
+  }
+
+  setActionMedia(): void {
+    if (this.mediaPlayerIsPlaying) {
+      this.pausePlayer();
+    } else {
+      this.playPlayer();
+    }
   }
 }
 </script>

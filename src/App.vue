@@ -32,9 +32,7 @@
           Artistas
         </vs-sidebar-item>
       </vs-sidebar>
-      <router-view
-        class="misaki-content"
-      />
+      <router-view class="misaki-content" />
       <MusicPlayer class="misaki-bottom-media" />
     </div>
   </div>

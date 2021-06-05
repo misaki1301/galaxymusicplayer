@@ -35,37 +35,45 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Song } from "@/types/Song";
-import { mapActions } from "vuex";
 import Player from "@/classes/Player.js";
+import { namespace } from "vuex-class";
+const playerModule = namespace("player");
 
-@Component({
-  methods: {
-    async getSongs(): void {
-      try {
-        const req = await this.axios.get("songs");
-        console.table(req.data);
-        this.songList = req.data;
-        this.setSongList(req.data);
-      } catch (e) {
-        console.error(e);
-      }
-    },
-    checkSong(song: void) {
-      //this.SetCurrentSong(song);
-      //this.player = new Player([song]);
-      //this.player.play();
-      this.playSelectedSong(song);
-    },
-    ...mapActions(["SetCurrentSong", "setSongList", "playSelectedSong"]),
-  },
+@Component
+export default class Songs extends Vue {
+  songList: Song[] = [];
+  volume = 0.5;
+
+  @playerModule.State
+  public player!: Player;
+
+  @playerModule.Action
+  public setCurrentSong!: (item: any) => void;
+
+  @playerModule.Action
+  public setSongList!: (songList: any) => void;
+
+  @playerModule.Action
+  public playSelectedSong!: (payload: Song) => void;
+
+  checkSong(song: Song): void {
+    this.playSelectedSong(song);
+  }
+
+  async getSongs(): Promise<void> {
+    try {
+      const req = await this.axios.get("songs");
+      console.table(req.data);
+      this.songList = req.data;
+      this.setSongList(req.data);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   async mounted() {
     await this.getSongs();
-  },
-})
-export default class Songs extends Vue {
-  private songList: Song[] = [];
-  private player: Player;
-  private volume = 0.5;
+  }
 }
 </script>
 
