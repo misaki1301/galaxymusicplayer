@@ -125,6 +125,7 @@ export default class MusicPlayer extends Vue {
 }
 .divider-player {
   display: flex;
+  width: 100%;
   align-items: center;
   flex-direction: row;
   margin: 0px 16px 0px 16px;

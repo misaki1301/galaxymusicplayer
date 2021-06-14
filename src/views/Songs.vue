@@ -1,34 +1,38 @@
 <template>
-  <div class="child">
-    <h1>Songs</h1>
-    <vs-row w="6" style="margin-top: 16px">
-      <vs-col type="flex" justify="center" align="center" w="12">
-        <vs-card
-          style="margin: 16px"
-          v-for="song in songList"
-          :key="song.index"
-        >
-          <template #title>
-            <h3>{{ song.name }}</h3>
-          </template>
-          <template #img>
-            <img :src="song.imageCover" alt="" />
-          </template>
-          <template #text>
-            <p>{{ song.artist.name }}</p>
-          </template>
-          <template #interactions>
-            <vs-button danger icon @click="checkSong(song)">
+  <div class="child p-4">
+    <b-row>
+      <b-col cols="12" sm="3" md="3" lg="3" xl="1"
+        class="my-2"
+        v-for="song in songList"
+        :key="song.index">
+          <b-card
+            class="rounded misaki-song-card h-100"
+            :img-src="song.imageCover"
+            :title="song.name">
+            <b-card-sub-title>
+              {{song.artist.name}}
+            </b-card-sub-title>
+            <div class="mini-button-play" @click="checkSong(song)">
               <i class="bx bx-play"></i>
-            </vs-button>
-            <vs-button class="btn-chat" shadow primary>
-              <i class="bx bx-heart"></i>
-              <span class="span">54</span>
-            </vs-button>
-          </template>
-        </vs-card>
-      </vs-col>
-    </vs-row>
+            </div>
+          </b-card>
+      </b-col>
+    </b-row>
+    <!-- <b-card-group>
+        <b-card
+        v-for="song in songList" :key="song.index"
+        class="mb-4 rounded"
+        :img-src="song.imageCover"
+        :title="song.name"
+        img-top>
+        <b-card-sub-title>
+          {{song.artist.name}}
+        </b-card-sub-title>
+        <div class="mini-button-play" @click="checkSong(song)">
+          <i class="bx bx-play"></i>
+        </div>
+        </b-card>
+    </b-card-group> -->
   </div>
 </template>
 
@@ -42,7 +46,7 @@ const playerModule = namespace("player");
 @Component
 export default class Songs extends Vue {
   songList: Song[] = [];
-  volume = 0.5;
+  volume = 0.2;
 
   @playerModule.State
   public player!: Player;
@@ -77,4 +81,33 @@ export default class Songs extends Vue {
 }
 </script>
 
-<style scoped></style>
+<style lang="less" scoped>
+.misaki-song-card{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: 0.5px;
+  .card-title{
+    font-size: 16px;
+  }
+  .card-img{
+    max-width: 250px;
+    max-height: 250px;
+  }
+}
+.mini-button-play{
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: 16px;
+  font-size: 24px;
+  color: red;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transition: all .2s ease-in-out;
+}
+.mini-button-play:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+</style>

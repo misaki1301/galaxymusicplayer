@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "paw": "serve dist",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
@@ -15,6 +16,7 @@
     "core-js": "^3.6.5",
     "howler": "^2.2.1",
     "register-service-worker": "^1.7.1",
+    "serve-dist": "^1.0.11",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.4",
     "vue-class-component": "^7.2.3",

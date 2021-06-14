@@ -25,7 +25,7 @@
           </template>
           Canciones
         </vs-sidebar-item>
-        <vs-sidebar-item id="home">
+        <vs-sidebar-item id="home" to="/artists" :active="active === 'artists'">
           <template #icon>
             <i class="bx bx-male"></i>
           </template>
@@ -33,8 +33,8 @@
         </vs-sidebar-item>
       </vs-sidebar>
       <router-view class="misaki-content" />
-      <MusicPlayer class="misaki-bottom-media" />
     </div>
+    <MusicPlayer class="misaki-bottom-media" />
   </div>
 </template>
 <script lang="ts">
@@ -44,11 +44,11 @@ import MusicPlayer from "@/components/MusicPlayer.vue";
   components: { MusicPlayer },
 })
 export default class App extends Vue {
-  private active = true;
+  active = true;
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -59,26 +59,25 @@ export default class App extends Vue {
 .mini-player {
   background: rgba(47, 41, 39, 0.51);
   backdrop-filter: blur(4px);
-  width: 100%;
 }
 .misaki-grid {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100vw;
-  height: 100vh;
   .misaki-sidebar {
-    flex: 1;
+    width: 250px;
     height: 85vh !important;
   }
   .misaki-content {
-    flex: 2;
+    flex: 1;
+    overflow-y: auto;
+    width: auto;
     height: 85vh !important;
   }
-  .misaki-bottom-media {
-    flex: 3;
-    height: 15vh !important;
-  }
+}
+.misaki-bottom-media {
+  display: flex;
+  width: 100vw !important;
+  height: 15vh !important;
+  justify-content: space-around;
 }
 body {
   margin: 0 !important;

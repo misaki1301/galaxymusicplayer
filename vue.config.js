@@ -4,7 +4,11 @@ module.exports = {
     name: "Galaxy Music Player",
     appleMobileWebAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "black",
-    orientation: "portrait",
     start_url: "/index.html",
+    manifestOptions: {
+      display: 'standalone',
+      orientation: 'portrait'
+    },
+    workboxPluginMode: 'GenerateSW'
   },
 };
