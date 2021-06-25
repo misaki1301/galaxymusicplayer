@@ -1,6 +1,3 @@
-variables:
-  SSH_PRIVATE_KEY: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDb+WTIue7+NrxbHgPdd3XmOUK+s+wf150Lkr2zbGc9G96oSmqzrf8qXEDujLI3b2Ekodg7iu1pmEi9RkZhi0ro20ECPsvxT5/hzmbcScCJghbRqTG2DFYXZP11Qt2OePRTcoWE7E1RDcw1QmdqgrRJxlwNbZsc7okD7LMTuXBhPNvwWd+yWuTyJlqO2Uen9CaAfN08biyxvBWm5EvdvYXIROrzxM3y6Z7m9jE0PqLkhTEG/mD7SzGnqePiXlzSDddSQ2ioREXq2MlsedCLa5pcCvRUsKQwu7ipA8Eoj+3H5+7AZBsDRPZZE2aXC3sfPanL/L700+9TNh8/dLhoEJGv9iTiEFPI3TqciIMEkuvN/f+ps3eKt7GkKtXNshiowWQW+QZKeLf5learRzuc0DDJREPv8YhOu2gTehZnJ87LN+ul3keKk1bedcBCgQEKvGLdBBSlJwZMen4ZAISfUCbMEe8pmQ1axv7gAuBvEJHqiI3B6hNqMAJu00TKh/lplp0= misaki@Pauls-MacBook-Pro.local
-misaki@Pauls-MacBook-Pro"
 build site:
   image: node:12
   stage: build
@@ -22,4 +19,4 @@ deploy:
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa.pub
     - chmod 600 ~/.ssh/id_rsa.pub
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -rav --delete dist/ root@192.241.156.11:/var/www/galaxy-player/
+    - rsync -rav --delete dist/ gitlab@192.241.156.11:/var/www/galaxy-player/
