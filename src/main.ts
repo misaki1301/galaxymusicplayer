@@ -17,7 +17,7 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = "http://galaxyplayer.somee.com/api/";
+axios.defaults.baseURL = "https://galaxyplayer.somee.com/api/";
 
 Vue.use(VueAxios, axios);
 Vue.use(Vuesax, {});
