@@ -19,4 +19,4 @@ deploy:
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
     - chmod 600 ~/.ssh/id_dsa
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -rav --delete dist/ gitlab@192.241.156.11:/var/www/galaxy-player/
+    - rsync -rav --delete dist/ root@192.241.156.11:/var/www/galaxy-player/
