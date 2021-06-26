@@ -1,13 +1,50 @@
 <template>
-  <div>
+  <div class="child p-4">
     <h1>Esta es la pagina de artistas</h1>
+    <b-row>
+      <b-col cols="3" v-for="artist in artistList" :key="artist.index">
+        <img
+          class="misaki-artist-cover-box"
+          :src="artist.imageProfile"
+          width="200"
+          height="200"
+          alt="artist"
+        />
+        <span class="misaki-artist-label">{{ artist.name }}</span>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
-<script>
-export default {
-  name: "Artists",
-};
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { Artist } from "@/types/Artist";
+
+@Component
+export default class Artists extends Vue {
+  artistList: Artist[] = [];
+
+  async getArtistList(): Promise<void> {
+    try {
+      const req = await this.axios.get("artists");
+      console.table(req.data);
+      this.artistList = req.data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async mounted(): Promise<void> {
+    await this.getArtistList();
+  }
+}
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.misaki-artist-cover-box {
+  object-fit: cover;
+}
+.misaki-artist-label {
+  font-weight: 500;
+}
+</style>

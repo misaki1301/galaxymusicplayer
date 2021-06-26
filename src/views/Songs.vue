@@ -1,38 +1,30 @@
 <template>
   <div class="child p-4">
     <b-row>
-      <b-col cols="12" sm="3" md="3" lg="3" xl="1"
+      <b-col
+        cols="12"
+        sm="3"
+        md="3"
+        lg="3"
+        xl="1"
         class="my-2"
         v-for="song in songList"
-        :key="song.index">
-          <b-card
-            class="rounded misaki-song-card h-100"
-            :img-src="song.imageCover"
-            :title="song.name">
-            <b-card-sub-title>
-              {{song.artist.name}}
-            </b-card-sub-title>
-            <div class="mini-button-play" @click="checkSong(song)">
-              <i class="bx bx-play"></i>
-            </div>
-          </b-card>
+        :key="song.index"
+      >
+        <b-card
+          class="rounded misaki-song-card h-100"
+          :img-src="song.imageCover"
+          :title="song.name"
+        >
+          <b-card-sub-title>
+            {{ song.artist.name }}
+          </b-card-sub-title>
+          <div class="mini-button-play" @click="checkSong(song)">
+            <i class="bx bx-play"></i>
+          </div>
+        </b-card>
       </b-col>
     </b-row>
-    <!-- <b-card-group>
-        <b-card
-        v-for="song in songList" :key="song.index"
-        class="mb-4 rounded"
-        :img-src="song.imageCover"
-        :title="song.name"
-        img-top>
-        <b-card-sub-title>
-          {{song.artist.name}}
-        </b-card-sub-title>
-        <div class="mini-button-play" @click="checkSong(song)">
-          <i class="bx bx-play"></i>
-        </div>
-        </b-card>
-    </b-card-group> -->
   </div>
 </template>
 
@@ -82,18 +74,18 @@ export default class Songs extends Vue {
 </script>
 
 <style lang="less" scoped>
-.misaki-song-card{
+.misaki-song-card {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border: 0.5px;
-  .card-title{
+  .card-title {
     font-size: 16px;
   }
-  .card-img{
+  .card-img {
     max-width: 250px;
     max-height: 250px;
   }
 }
-.mini-button-play{
+.mini-button-play {
   position: absolute;
   width: 32px;
   height: 32px;
@@ -104,9 +96,9 @@ export default class Songs extends Vue {
   border-radius: 8px;
   background-color: white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
-.mini-button-play:hover{
+.mini-button-play:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
