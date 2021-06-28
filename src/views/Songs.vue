@@ -6,7 +6,7 @@
         sm="3"
         md="3"
         lg="3"
-        xl="1"
+        xl="2"
         class="my-2"
         v-for="song in songList"
         :key="song.index"
@@ -76,13 +76,15 @@ export default class Songs extends Vue {
 <style lang="less" scoped>
 .misaki-song-card {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: 200px;
   border: 0.5px;
   .card-title {
     font-size: 16px;
   }
   .card-img {
-    max-width: 250px;
-    max-height: 250px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
   }
 }
 .mini-button-play {

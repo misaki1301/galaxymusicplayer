@@ -1,6 +1,9 @@
 import "@babel/polyfill";
 import "mutationobserver-shim";
 import Vue from "vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import Vuelidate from "vuelidate";
 import "./plugins/bootstrap-vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -21,6 +24,7 @@ axios.defaults.baseURL = "https://galaxyplayer.somee.com/api/";
 
 Vue.use(VueAxios, axios);
 Vue.use(Vuesax, {});
+Vue.use(Vuelidate);
 
 new Vue({
   router,

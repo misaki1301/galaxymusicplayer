@@ -4,7 +4,7 @@ export type Song = {
   id: number;
   name: string;
   filePath: string;
-  duration: bigint;
+  duration: number;
   imageCover: string;
   artist: Artist;
 };

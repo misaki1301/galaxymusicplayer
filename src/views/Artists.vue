@@ -3,14 +3,16 @@
     <h1>Esta es la pagina de artistas</h1>
     <b-row>
       <b-col cols="3" v-for="artist in artistList" :key="artist.index">
-        <img
-          class="misaki-artist-cover-box"
-          :src="artist.imageProfile"
-          width="200"
-          height="200"
-          alt="artist"
-        />
-        <span class="misaki-artist-label">{{ artist.name }}</span>
+        <div>
+          <img
+            class="misaki-artist-cover-box"
+            :src="artist.imageProfile"
+            width="200"
+            height="200"
+            alt="artist"
+          />
+          <p class="misaki-artist-label">{{ artist.name }}</p>
+        </div>
       </b-col>
     </b-row>
   </div>

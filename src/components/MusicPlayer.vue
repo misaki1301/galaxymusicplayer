@@ -1,5 +1,5 @@
 <template>
-  <div class="mini-player" v-if="currentSong">
+  <div class="mini-player">
     <div class="divider-player">
       <div class="left-control-media">
         <div>

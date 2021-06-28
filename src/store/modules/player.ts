@@ -6,7 +6,14 @@ import store from "@/store";
 @Module({ namespaced: true, store })
 class PlayerState extends VuexModule {
   public songList: Song[] = [];
-  public selectedSong: Song | undefined;
+  public selectedSong: Song = {
+    id: 1,
+    name: "",
+    imageCover: "",
+    artist: { id: 1, name: "", songs: [], imageProfile: "" },
+    filePath: "",
+    duration: 0,
+  };
   public mediaPlayer = new Player();
 
   @Mutation
@@ -64,7 +71,9 @@ class PlayerState extends VuexModule {
     this.mediaPlayer.volume(volume);
   }
   get currentSong(): any {
-    return this.mediaPlayer.currentSong;
+    return this.mediaPlayer.currentSong == ""
+      ? this.selectedSong
+      : this.mediaPlayer.currentSong;
   }
   get mediaPlayerIsPlaying(): any {
     return this.mediaPlayer.isPlaying;
