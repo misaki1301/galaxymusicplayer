@@ -38,13 +38,20 @@
             <b-col cols="4"> </b-col>
             <b-col cols="4"></b-col>
             <b-col cols="4">
-              <div class="float-right" v-b-modal.modal-login>
+              <div v-if="!loggedUser"
+                class="float-right misaki-side-profile-chip"
+                v-b-modal.modal-login
+              >
                 <img
                   class="imageProfileCircular"
                   :src="imageProfile"
                   alt="imageProfileLogin"
                 />
-                <span class="ml-4 text-white">Iniciar sesión</span>
+                <span class="mx-4 text-white">Iniciar sesión</span>
+              </div>
+              <div v-else class="float-right misaki-side-profile-chip">
+                <img :src="loggedUser.imageProfile" class="imageProfileCircular" />
+                <span class="ml-2 mr-4 text-white">{{loggedUser.username}}</span>
               </div>
             </b-col>
           </b-row>
@@ -57,8 +64,6 @@
       id="modal-login"
       ref="modal"
       title="Inicio de sesión"
-      @show="resetModal"
-      @hidden="resetModal"
       @ok="handleOk"
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
@@ -66,26 +71,28 @@
           label="Nombre de usuario"
           label-for="username-input"
           invalid-feedback="el nombre de usuario es requerido."
-          :state="usernameState"
         >
           <b-form-input
             id="username-input"
-            v-model="user.username"
-            :state="usernameState"
+            v-model="$v.user.username.$model"
+            :required="!$v.user.username.required"
+            :state="$v.user.username.$dirty ? !$v.user.username.$invalid : null"
           ></b-form-input>
+          <b-form-invalid-feedback v-if="!$v.user.username.minLength">
+            Debe ingresar el nombre de usuario mayor a 4 caracteres
+          </b-form-invalid-feedback>
         </b-form-group>
         <b-form-group
           label="Contraseña"
           label-for="password-input"
           invalid-feedback="la contraseña es requerida."
-          :state="passwordState"
         >
           <b-form-input
             id="password-input"
-            v-model="user.password"
-            :state="passwordState"
+            v-model="$v.user.password.$model"
             type="password"
-            required
+            :required="!$v.user.password.required"
+            :state="$v.user.password.$dirty ? !$v.user.password.$invalid : null"
           ></b-form-input>
         </b-form-group>
       </form>
@@ -94,9 +101,12 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { email, required, minLength } from "@vuelidate/validators";
 import MusicPlayer from "@/components/MusicPlayer.vue";
-import useVuelidate from "@vuelidate/core";
+import { minLength, required } from "vuelidate/lib/validators";
+import { namespace } from "vuex-class";
+import { User } from "@/types/User";
+const authModule = namespace("auth");
+
 @Component({
   components: { MusicPlayer },
 })
@@ -108,42 +118,50 @@ export default class App extends Vue {
     username: "",
     password: "",
   };
-  passwordState = null;
-  usernameState = null;
-  setup() {
-    return { v$: useVuelidate()}
-  }
-  validations() {
+  @authModule.State
+  public loggedUser!: User;
+
+  validations(): any {
     return {
-      username: {
-        required,
-        minLength: 4,
-      },
-      password: {
-        required,
-        minLength: 4,
+      user: {
+        username: {
+          required,
+          minLength: minLength(4),
+        },
+        password: {
+          required,
+          minLength: minLength(4),
+        },
       },
     };
   }
-
-  public checkFormValidity() {
-    return false;
-  }
-  public resetModal() {
+  public resetModal(): void {
     this.user.username = "";
     this.user.password = "";
   }
-  public handleOk(event: any) {
+  public handleOk(event: any): void {
     event.preventDefault();
     this.handleSubmit();
   }
-  public handleSubmit() {
-    if (!this.checkFormValidity()) {
+
+  public async handleSubmit(): void {
+    this.$v.$touch();
+    console.log(this.$v.$invalid);
+    if (this.$v.$invalid) {
       return;
     }
+    console.log(this.user);
+    this.LogInUser(this.user);
+
     this.$nextTick(() => {
       this.$bvModal.hide("modal-login");
     });
+  }
+  @authModule.Action
+  public LogInUser!: (user: User) => void;
+
+  async mounted() {
+    //await this.GetUserData();
   }
 }
 </script>
@@ -190,6 +208,12 @@ export default class App extends Vue {
   width: 100vw !important;
   height: 15vh !important;
   justify-content: space-around;
+}
+.misaki-side-profile-chip {
+  border-radius: 36px;
+  border: 2px rgba(255, 255, 255, 0.5) solid;
+  display: flex;
+  align-items: center;
 }
 body {
   margin: 0 !important;

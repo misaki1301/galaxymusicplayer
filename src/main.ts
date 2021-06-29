@@ -1,10 +1,11 @@
-import "@babel/polyfill";
 import "mutationobserver-shim";
 import Vue from "vue";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import Vuelidate from "vuelidate";
+import "./registerComponentHook";
 import "./plugins/bootstrap-vue";
+import { BootstrapVue } from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Vuesax from "vuesax";
@@ -20,11 +21,12 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = "https://galaxyplayer.somee.com/api/";
+axios.defaults.baseURL = process.env.VUE_APP_URL_API + "/api/";
 
+Vue.use(Vuelidate);
+Vue.use(BootstrapVue);
 Vue.use(VueAxios, axios);
 Vue.use(Vuesax, {});
-Vue.use(Vuelidate);
 
 new Vue({
   router,

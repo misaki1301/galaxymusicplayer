@@ -32,9 +32,8 @@ class PlayerState extends VuexModule {
   }
 
   @Action({rawError: true})
-  public playSelectedSong(payload: Song) {
+  public playSelectedSong(payload: Song): void {
     const current = this.songList.find((x) => x.id === payload.id);
-    //if (current) {
     try {
       this.mediaPlayer.stop();
     } catch (e) {
@@ -42,14 +41,13 @@ class PlayerState extends VuexModule {
     }
     this.mediaPlayer.playlist = this.songList;
     current && this.mediaPlayer.play(this.songList.indexOf(current));
-    //}
   }
   @Action({rawError: true})
-  public setSongList(payload: any) {
+  public setSongList(payload: any): void {
     this.context.commit("addSongList", payload);
   }
   @Action({rawError: true})
-  pausePlayer() {
+  pausePlayer(): void {
     this.mediaPlayer.pause();
     this.mediaPlayer.isPlaying = false;
   }
