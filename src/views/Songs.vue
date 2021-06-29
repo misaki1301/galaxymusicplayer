@@ -59,7 +59,6 @@ export default class Songs extends Vue {
   async getSongs(): Promise<void> {
     try {
       const req = await this.axios.get("songs");
-      console.table(req.data);
       this.songList = req.data;
       this.setSongList(req.data);
     } catch (e) {

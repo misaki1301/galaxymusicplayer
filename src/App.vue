@@ -33,12 +33,10 @@
         </vs-sidebar-item>
       </vs-sidebar>
       <div class="misaki-content">
-        <div class="topbar-misaki">
-          <b-row class="align-content-center" style="width: 100%">
-            <b-col cols="4"> </b-col>
-            <b-col cols="4"></b-col>
-            <b-col cols="4">
-              <div v-if="!loggedUser"
+        <b-navbar class="topbar-misaki">
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item cols="4">
+              <div v-if="!currentUser"
                 class="float-right misaki-side-profile-chip"
                 v-b-modal.modal-login
               >
@@ -49,13 +47,19 @@
                 />
                 <span class="mx-4 text-white">Iniciar sesión</span>
               </div>
-              <div v-else class="float-right misaki-side-profile-chip">
-                <img :src="loggedUser.imageProfile" class="imageProfileCircular" />
-                <span class="ml-2 mr-4 text-white">{{loggedUser.username}}</span>
-              </div>
-            </b-col>
-          </b-row>
-        </div>
+              <b-nav-item v-else class="float-right misaki-side-profile-chip">
+                <b-nav-item-dropdown>
+                  <template #button-content>
+                    <b-avatar :src="currentUser.imageProfile"></b-avatar>
+                    <span class="text-white">{{currentUser.username}}</span>
+                  </template>
+                  <b-dropdown-item href="#">An Item</b-dropdown-item>
+                  <b-dropdown-item href="#">An Item 2</b-dropdown-item>
+                </b-nav-item-dropdown>
+              </b-nav-item>
+            </b-nav-item>
+          </b-navbar-nav>
+        </b-navbar>
         <router-view class="misaki-inner-content" />
       </div>
     </div>
@@ -118,8 +122,8 @@ export default class App extends Vue {
     username: "",
     password: "",
   };
-  @authModule.State
-  public loggedUser!: User;
+  @authModule.Getter
+  public currentUser!: User | null;
 
   validations(): any {
     return {
@@ -144,7 +148,7 @@ export default class App extends Vue {
     this.handleSubmit();
   }
 
-  public async handleSubmit(): void {
+  public async handleSubmit(): Promise<void> {
     this.$v.$touch();
     console.log(this.$v.$invalid);
     if (this.$v.$invalid) {
@@ -158,7 +162,7 @@ export default class App extends Vue {
     });
   }
   @authModule.Action
-  public LogInUser!: (user: User) => void;
+  public LogInUser!: (user: any) => void;
 
   async mounted() {
     //await this.GetUserData();
@@ -171,7 +175,7 @@ export default class App extends Vue {
   text-align: center;
 }
 .mini-player {
-  background: rgba(47, 41, 39, 0.51);
+  background: rgba(29, 28, 28, 0.51);
   backdrop-filter: blur(4px);
 }
 .misaki-grid {
@@ -191,6 +195,7 @@ export default class App extends Vue {
       display: flex;
       position: sticky;
       height: 64px;
+      z-index: 100;
     }
     .misaki-inner-content {
       overflow-y: auto;

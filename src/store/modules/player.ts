@@ -6,7 +6,7 @@ import store from "@/store";
 @Module({ namespaced: true, store })
 class PlayerState extends VuexModule {
   public songList: Song[] = [];
-  public selectedSong: Song = {
+  public selectedSong: Song | null = {
     id: 1,
     name: "",
     imageCover: "",
