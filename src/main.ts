@@ -1,3 +1,4 @@
+import "@babel/polyfill";
 import "mutationobserver-shim";
 import Vue from "vue";
 import Vuelidate from "vuelidate";
