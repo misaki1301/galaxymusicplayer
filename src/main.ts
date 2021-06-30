@@ -39,4 +39,10 @@ if (token != "") {
       render: (h) => h(App),
     }).$mount("#app");
   });
+} else {
+  new Vue({
+    router,
+    store,
+    render: (h) => h(App),
+  }).$mount("#app");
 }
