@@ -30,17 +30,21 @@ class AuthState extends VuexModule {
     }
   }
   @Action
-  async LogOutUser(): Promise<boolean> {
+  async getUserData(): Promise<void> {
+    try {
+      const req = await axios.get("users/identifyByToken");
+      this.context.commit("setLoggedUser", req.data);
+    } catch (e) {
+      console.error(e)
+    }
+  }
+  @Action
+  async logOutUser(): Promise<boolean> {
     try{
-      const req = await axios.get("users/logout");
-      if (req.data.success) {
         this.context.commit("setLoggedUser", null);
         this.context.commit("setToken", null);
         localStorage.removeItem("token")
         return true;
-      } else {
-        return false;
-      }
     } catch (e) {
       console.error(e)
       return false;
@@ -50,7 +54,7 @@ class AuthState extends VuexModule {
     return this.loggedUser;
   }
   get isUserLogged(): boolean {
-    return this.loggedUser == null
+    return this.loggedUser != null;
   }
 }
 export default AuthState;

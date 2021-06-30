@@ -21,15 +21,22 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
+const token = localStorage.getItem("token") ?? "";
 axios.defaults.baseURL = process.env.VUE_APP_URL_API + "/api/";
+axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
 
 Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 Vue.use(VueAxios, axios);
 Vue.use(Vuesax, {});
 
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
+if (token != "") {
+  store.dispatch("auth/getUserData").finally(() => {
+
+    new Vue({
+      router,
+      store,
+      render: (h) => h(App),
+    }).$mount("#app");
+  });
+}

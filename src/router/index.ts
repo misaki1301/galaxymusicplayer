@@ -29,6 +29,16 @@ const routes: Array<RouteConfig> = [
     name: "Artists",
     component: () => import("../views/Artists.vue"),
   },
+  {
+    path: "/my-profile",
+    name: "UserProfile",
+    component: () => import("../views/profiles/UserProfile.vue"),
+  },
+  {
+    path: "/artists/:name",
+    name: "ArtistProfile",
+    component: () => import("../views/profiles/ArtistProfile.vue"),
+  },
 ];
 
 const router = new VueRouter({

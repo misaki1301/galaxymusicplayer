@@ -3,7 +3,14 @@
     <h1>Esta es la pagina de artistas</h1>
     <b-row>
       <b-col cols="3" v-for="artist in artistList" :key="artist.index">
-        <div>
+        <div
+          @click="
+            $router.push({
+              name: 'ArtistProfile',
+              params: { name: `${convertNameToSlug(artist.name)}` },
+            })
+          "
+        >
           <img
             class="misaki-artist-cover-box"
             :src="artist.imageProfile"
@@ -34,6 +41,10 @@ export default class Artists extends Vue {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  public convertNameToSlug(text: string): string {
+    return text.replace(/\s/g, "-").toLowerCase();
   }
 
   async mounted(): Promise<void> {
