@@ -66,7 +66,7 @@ import player from "@/store/modules/player";
 export default class MusicPlayer extends Vue {
   volume = 75;
   currentDuration = 0;
-  interval = null;
+  interval: number | null = null;
 
   @playerModule.Getter
   public mediaPlayerIsPlaying!: boolean;

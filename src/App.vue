@@ -12,7 +12,7 @@ import AdminLayout from "@/layouts/AdminLayout.vue";
   components: { AdminLayout, AppLayout },
 })
 export default class App extends Vue {
-  layout = null;
+  layout: string | null = null;
   @Watch("$route", { immediate: true })
   onLayoutChanged(to: any): void {
     if (to.meta.layout !== undefined) {
