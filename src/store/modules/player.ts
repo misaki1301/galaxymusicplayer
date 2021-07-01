@@ -79,5 +79,8 @@ class PlayerState extends VuexModule {
   get maxDurationSong(): any {
     return this.mediaPlayer.getMaxDuration();
   }
+  get progressSong(): any {
+    return this.mediaPlayer.getProgress();
+  }
 }
 export default PlayerState;

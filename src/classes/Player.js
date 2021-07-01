@@ -8,6 +8,7 @@ export default class Player {
   progress = 0;
   currentSong = "";
   sound = null;
+  interval = null;
   actionsHandlers = [
     [
       "play",
@@ -90,7 +91,10 @@ export default class Player {
         onplay: function () {
           console.log(self.playlist[index]);
           self.setProgress(self.sound.seek());
-          self.setProgress(setInterval(self.sound.seek(), 1000));
+          self.interval = setInterval(() => {
+            self.setProgress(self.sound.seek());
+          }, 1000);
+          //self.setProgress(setInterval(self.sound.seek(), 1000));
         },
         onload: function () {
           self.duration = self.sound.duration();
