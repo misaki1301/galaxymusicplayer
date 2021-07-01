@@ -21,6 +21,7 @@
               <span class="text-white ml-2">{{ currentUser.username }}</span>
             </template>
             <b-dropdown-item to="my-profile">Mi perfil</b-dropdown-item>
+            <b-dropdown-item to="/control-panel">Panel de control</b-dropdown-item>
             <b-dropdown-item @click="logOutUser">Cerrar sesión</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-nav-item>
