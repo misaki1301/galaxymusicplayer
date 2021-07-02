@@ -20,7 +20,7 @@
       </div>
       <div class="center-media-actions">
         <div class="seekbar-media">
-          <input type="range" v-model="currentDuration" :maxlength="100" />
+          <input type="range" v-model="progressSong" :maxlength="100" step="0.25"/>
         </div>
         <div class="actions-media-buttons">
           <div>
@@ -47,7 +47,7 @@
           <i class="bx bx-volume" />
         </div>
         <div>
-          <input type="range" v-model="volume" min="0" max="100" step="1" />
+          <input type="range" v-model="volume" min="0" max="100" step="0.5" />
         </div>
       </div>
     </div>
@@ -58,9 +58,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 const playerModule = namespace("player");
-import { Song } from "@/types/Song";
 import Player from "@/classes/Player";
-import player from "@/store/modules/player";
 
 @Component
 export default class MusicPlayer extends Vue {
@@ -78,7 +76,7 @@ export default class MusicPlayer extends Vue {
   public maxDurationSong!: any;
 
   @playerModule.Getter
-  public progressSong!: any;
+  public progressSong!: number;
 
   @playerModule.State
   public mediaPlayer!: Player;
@@ -116,10 +114,10 @@ export default class MusicPlayer extends Vue {
   setActionMedia(): void {
     if (this.mediaPlayerIsPlaying) {
       this.pausePlayer();
-      clearInterval(this.interval);
+      //clearInterval(this.interval);
     } else {
       this.playPlayer();
-      this.getProgressCurrentSong();
+      //this.getProgressCurrentSong();
       console.log("inicio de intervals")
     }
   }

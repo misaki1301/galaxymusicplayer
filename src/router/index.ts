@@ -53,6 +53,14 @@ const routes: Array<RouteConfig> = [
       layout: "AdminLayout",
     },
   },
+  {
+    path: "/songs-panel",
+    name: "SongsPanel",
+    component: () => import("../views/admin/SongsPanel.vue"),
+    meta: {
+      layout: "AdminLayout",
+    },
+  },
 ];
 
 const router = new VueRouter({

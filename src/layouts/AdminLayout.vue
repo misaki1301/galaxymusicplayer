@@ -5,7 +5,7 @@
       Galaxy Player
     </b-navbar-brand>
     <b-navbar-nav class="ml-auto">
-      <b-nav-item>Canciones</b-nav-item>
+      <b-nav-item to="/songs-panel">Canciones</b-nav-item>
       <b-nav-item>Artistas</b-nav-item>
       <b-nav-item>Albumnes</b-nav-item>
       <b-nav-item-dropdown text="Usuario" right>
@@ -24,6 +24,8 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+#admin {
+  background: #ececec;
+}
 </style>

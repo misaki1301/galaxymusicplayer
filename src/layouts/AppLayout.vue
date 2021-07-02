@@ -11,7 +11,7 @@
         class="misaki-sidebar"
       >
         <template #logo>
-          <i class="bx bxl-vuejs"></i><i class="bx bxs-music"></i>Galaxy Player
+          <img src="@/assets/logo-neo-dark.svg" />Galaxy Player
         </template>
         <vs-sidebar-item id="Home" to="/" :active="activePath === 'Home'">
           <template #icon>
