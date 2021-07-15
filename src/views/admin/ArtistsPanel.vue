@@ -1,6 +1,6 @@
 <template>
   <h1>
-    Hola Artistas
+    Hola Artistas XD
   </h1>
 </template>
 
