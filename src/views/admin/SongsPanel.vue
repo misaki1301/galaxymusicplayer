@@ -105,13 +105,12 @@ export default class SongsPanel extends Vue {
   public async uploadSong(): Promise<void> {
     try{
       const form = new FormData()
-      form.append("name", this.song.name)
-      form.append("ArtistId", this.song.artist.toString())
-      form.append("song", this.song.file)
-      await this.axios
-          .post("/songs",
-            form,
-            { headers: { 'Content-Type': 'multipart/form-data' } })
+      form.append("name", this.song.name);
+      form.append("ArtistId", this.song.artist.toString());
+      form.append("song", this.song.file);
+      await this.axios.post("/songs", form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
     } catch (e) {
       console.error(e);
     }
